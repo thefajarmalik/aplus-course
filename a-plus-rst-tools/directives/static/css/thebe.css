@@ -1,0 +1,261 @@
+/* CSS for the thebe-button directive.
+Source: https://github.com/executablebooks/sphinx-thebe/blob/v0.0.8/sphinx_thebe/_static/sphinx-thebe.css
+
+MIT License
+
+Copyright (c) 2018 Chris Holdgraf
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
+/* || COMMON STYLES FOR LAUNCH-BUTTON INTERFACE */
+.thebe-info {
+  width: 100%;
+  margin-bottom: 5pt;
+  margin-top: 5pt;
+  background-color: #dff0d8;
+  border-style: solid;
+  border-color: #aaa;
+  border-radius: 5pt;
+}
+
+.thebelab-button.thebe-launch-button {
+  font-size: .8em;
+  border: 1px black solid;
+}
+
+.thebe-status-waiting.thebe-info {
+  background-color: lightgray;
+}
+
+.thebe-status-launching.thebe-info,
+.thebe-status-building.thebe-info,
+.thebe-status-built.thebe-info,
+.thebe-status-starting.thebe-info {
+  background-color: white;
+}
+
+.thebe-status-ready.thebe-info {
+  background-color: lightblue;
+}
+
+.thebe-status-disconnected.thebe-info {
+  background-color: lightcoral;
+}
+
+.thebe-launch-button span.status {
+  font-family: monospace;
+  font-weight: bold;
+}
+
+.thebe-launch-button {
+  pointer-events: none;
+}
+
+.thebe-status-waiting .thebe-launch-button {
+  pointer-events: auto;
+}
+
+.thebe-standalone-button-container button.thebe-launch-button div.spinner {
+  float: left;
+  margin-right: 1em;
+}
+
+.thebe-status-ready .thebe-launch-button .spinner {
+  display: none;
+}
+
+/* Loading spinner definition is at the end of this file */
+
+/* || STANDALONE BUTTONS */
+.thebe-info.thebe-standalone-button-container {
+  text-align: center;
+  display: block;
+  padding: 20pt;
+}
+
+
+/* || BUTTONS NEXT TO CODE BLOCK  */
+/* to make it fit in with code cell. */
+
+.thebe-info.thebe-precell-button-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  border: 2px solid #aaa;
+  border-bottom-width: 0px;
+  border-radius: 5pt 5pt 0pt 0pt;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.thebe-status {
+  padding: 5pt 10pt;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+
+.thebe-controls {
+  padding: 5pt 10pt;
+}
+
+.thebe-status-ready .thebe-controls {
+  display: none;
+}
+
+/* || ALL THEBE BUTTONS */
+.thebelab-button {
+  z-index: 999;
+  display: inline-block;
+  padding: 0.35em 1.2em;
+  margin: 0px 1px;
+  border-radius: 0.12em;
+  min-width: 80px;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  text-align: center;
+  transition: all 0.2s;
+  background-color: #dddddd;
+  border: 0.05em solid white;
+  color: #000000;
+}
+
+.thebelab-button:hover {
+  border: 0.05em solid black;
+  background-color: #fcfcfc;
+}
+
+.thebe-button-container button {
+  background-color: white
+}
+
+/* || CODE CELLS */
+
+.thebelab-cell {
+  background: none;
+  border: 2px solid #aaa;
+  border-radius: 5pt;
+  padding-bottom: 8px;
+}
+
+.thebelab-cell:focus-within {
+  border-color: #777 !important;
+}
+
+.thebelab-cell .thebelab-input {
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-bottom: .5em;
+  margin-top: .5em;
+}
+
+.thebelab-cell .jp-OutputArea {
+  margin-top: .5em;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+button.thebelab-button.thebelab-run-button {
+  margin-left: 1.5em;
+  margin-bottom: .5em;
+}
+
+/* || CODE BLOCKS NEXT TO BUTTON  */
+/* to make them fit in with button */
+
+.thebe-precell-button-container+.thebe .thebelab-cell {
+  margin-top: 0px;
+  border-radius: 0 0 5pt 5pt;
+}
+
+.thebe-precell-button-container+.thebe .highlight>pre {
+  margin-top: 0px;
+  background: none;
+  border: 2px solid #aaa;
+  border-radius: 0 0 5pt 5pt;
+}
+
+/* || LOADING SPINNER */
+
+.spinner {
+  height: 2em;
+  text-align: center;
+  font-size: 0.7em;
+}
+
+.spinner>div {
+  background-color: #F37726;
+  height: 100%;
+  width: 6px;
+  display: inline-block;
+
+  -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+  animation: sk-stretchdelay 1.2s infinite ease-in-out;
+}
+
+.spinner .rect2 {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s;
+}
+
+.spinner .rect3 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+.spinner .rect4 {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s;
+}
+
+.spinner .rect5 {
+  -webkit-animation-delay: -0.8s;
+  animation-delay: -0.8s;
+}
+
+@-webkit-keyframes sk-stretchdelay {
+
+  0%,
+  40%,
+  100% {
+    -webkit-transform: scaleY(0.4)
+  }
+
+  20% {
+    -webkit-transform: scaleY(1.0)
+  }
+}
+
+@keyframes sk-stretchdelay {
+
+  0%,
+  40%,
+  100% {
+    transform: scaleY(0.4);
+    -webkit-transform: scaleY(0.4);
+  }
+
+  20% {
+    transform: scaleY(1.0);
+    -webkit-transform: scaleY(1.0);
+  }
+}

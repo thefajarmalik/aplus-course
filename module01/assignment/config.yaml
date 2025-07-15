@@ -1,0 +1,35 @@
+---
+
+title: |
+  Create one-time login URL
+instructions: |
+  See above for additional information.
+
+max_points: 0
+view_type: access.types.stdsync.createForm
+
+fieldgroups:
+
+  - title: ''
+
+    fields:
+
+    - key: login
+      type: checkbox
+      required: true
+      title: Confirmation
+      options:
+        - label: |
+            I confirm that I want to login to the external service.
+          correct: true
+          value: yes
+
+lti: Grader
+lti_aplus_get_and_post: true
+
+container:
+  image: apluslms/grade-python:3.11-4.9-4.9
+  privileged: true
+  enable_network: true
+  mount: module01/assignment
+  cmd: /exercise/run.sh

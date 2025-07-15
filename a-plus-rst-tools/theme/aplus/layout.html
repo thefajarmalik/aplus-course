@@ -1,0 +1,278 @@
+{%- block doctype -%}
+<!DOCTYPE html>
+{%- endblock %}
+
+{%- macro siblings() %}
+<nav class="row siblings">
+  {%- if prev %}
+  <a href="{{ prev.link|e }}" class="nav-flex-left">
+    &laquo; {{ prev.title }}
+  </a>
+  {%- endif %}
+  {%- if next %}
+  <a href="{{ next.link|e }}" class="nav-flex-right">
+    {{ next.title }} &raquo;
+  </a>
+  {%- endif %}
+</nav>
+{%- endmacro %}
+
+<html{% if language is not none %} lang="{{ language }}" {% endif %}>
+
+  <head>
+    <meta charset="{{ encoding }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> {{ metatags }} {%- block htmltitle %}
+    <title>{{ title|striptags|e }}{{ titlesuffix }}</title>
+    {%- endblock %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/github.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
+
+    {%- if theme_include_mathjax %}
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    {%- endif %}
+
+    <!-- The A+ main.css includes Bootstrap v3.4.1 CSS styles since A+ v1.8. -->
+    <link rel="stylesheet" href="https://plus.cs.aalto.fi/static/css/main.css">
+    <script src="https://plus.cs.aalto.fi/static/js/bootstrap3.min.js"></script>
+
+    {%- if style %}
+    {# This is either the stylesheet defined in theme.conf (default.css) or
+       a custom CSS file defined in the course conf.py file (variable html_style).
+       The custom stylesheet may use `@import url("default.css");` in order to
+       include the stylesheet from the theme. #}
+    <link rel="stylesheet" href="{{ pathto('_static/' + style, 1) }}" type="text/css" data-aplus="yes" />
+    {%- endif %}
+    <link rel="stylesheet" href="{{ pathto('_static/pygments.css', 1) }}" type="text/css" data-aplus="yes" />
+
+    {#- script_files and css_files contain some built-in files from Sphinx that
+       we do not want to include. Only include tags that have the data-aplus
+       attribute added by the directive code. -#}
+    {%- for js in script_files %}
+      {%- if 'data-aplus' in js.attributes %}
+        {{ js_tag(js) }}
+      {%- endif %}
+    {%- endfor %}
+
+    {%- for css in css_files %}
+      {%- if 'data-aplus' in css.attributes %}
+        {{ css_tag(css) }}
+      {%- endif %}
+    {%- endfor %}
+
+    {%- block extrahead %} {% endblock %}
+  </head>
+
+  <body role="document">
+    <div class="page-wrap">
+      <nav class="navbar navbar-inverse navbar-static-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand hidden-xs" href="#">
+              A+
+            </a>
+            <span class="navbar-brand visible-xs">
+              A+ &nbsp; {{ title }}
+            </span>
+          </div>
+          <div class="collapse navbar-collapse" id="bs-navbar-collapse">
+            <ul class="nav navbar-nav hidden-xs">
+              <li role="presentation" class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  Mock frame
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li role="presentation">
+                    <a href="{{ pathto(master_doc) }}">
+                      Index
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="user-menu nav navbar-nav navbar-right hidden-xs">
+              <li role="presentation" class="menu-profile">
+                <a href="#">
+                  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                  username
+                </a>
+              </li>
+              <li role="presentation">
+                <a href="#">
+                  <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                  Log out
+                </a>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav visible-xs">
+              <li role="presentation">
+                <a href="{{ pathto(master_doc) }}">
+                  {{ title }}
+                </a>
+              </li>
+              <li role="presentation" class="header">
+                <h4>Course</h4></li>
+              <li role="presentation" class="menu-home">
+                <a href="{{ pathto(master_doc) }}">
+                  <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+                  Index
+                </a>
+              </li>
+              <li role="presentation" class="menu-results">
+                <a href="#">
+                  <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+                  Exercise results
+                </a>
+              </li>
+              <li role="presentation" class="menu-notifications">
+                <a href="#">
+                  <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                  Notifications
+                </a>
+              </li>
+              <li role="presentation" class="header">
+                <h4>External</h4>
+              </li>
+              <li>
+                <a href="#">
+                  <span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>
+                  Discussions
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                  Help
+                </a>
+              </li>
+              <li role="presentation" class="header">
+                <h4>Site</h4></li>
+              <li role="presentation">
+                <a href="#">
+                  <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                  Home
+                </a>
+              </li>
+              <li role="presentation">
+                <a href="#">
+                  <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                  Course archive
+                </a>
+              </li>
+              <li role="presentation">
+                <a href="#">
+                  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                  username
+                </a>
+              </li>
+              <li role="presentation">
+                <a href="#">
+                  <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                  Log out
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="site-content container-fluid">
+        <div class="row">
+          <div class="col-sm-2 hidden-xs">
+            <nav class="course-menu">
+              <ul class="nav nav-pills nav-stacked">
+                <li role="presentation" class="header">
+                  <h4>Course</h4>
+                </li>
+                <li role="presentation" class="menu-home">
+                  <a href="{{ pathto(master_doc) }}">
+                    <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+                    Index
+                  </a>
+                </li>
+                <li role="presentation" class="menu-results">
+                  <a href="#">
+                    <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+                    Exercise results
+                  </a>
+                </li>
+                <li role="presentation" class="menu-notifications">
+                  <a href="#">
+                    <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                    Notifications
+                  </a>
+                </li>
+                <li role="presentation" class="header">
+                  <h4>External</h4></li>
+                <li>
+                  <a href="#">
+                    <span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>
+                    Discussions
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                    Help
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div class="col-sm-10">
+            {{ siblings() }}
+            <ol class="breadcrumb">
+              {% for doc in parents %}
+                <li><a href="{{ doc.link|e }}">{{ doc.title }}</a> &raquo;</li>
+              {% endfor %}
+              <li class="active">{{ title }}</li>
+            </ol>
+
+            <div class="row">
+              <div class="col-lg-{%- if theme_use_wide_column|tobool %}12{%- else %}9{%- endif %}">
+                <div id="exercise">
+                  <div class="content">
+                    {%- block content %} {%- block document %} {%- block body %} {% endblock %} {%- endblock %} {%- endblock %}
+                  </div>
+                  {# The footer is included in A+ chapter pages since it is defined inside div#exercise. #}
+                  {# Scripts do not need the data-aplus attribute here. #}
+                  {%- block footer %} {% endblock %}
+                </div>
+              </div>
+              {%- if not theme_use_wide_column|tobool %}
+              <div class="col-lg-3">
+                <div class="well">
+                  <p>Column placeholder</p>
+                </div>
+              </div>
+              {%- endif %}
+            </div>
+
+            {{ siblings() }}
+          </div>
+        </div>
+      </div>
+      <nav class="site-footer navbar navbar-default navbar-fixed-bottom">
+        <div class="container-fluid">
+          <ul class="nav navbar-nav">
+            <li role="presentation">
+              <a href="#">
+                Privacy Policy
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </body>
+</html>

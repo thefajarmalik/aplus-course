@@ -1,0 +1,34 @@
+__pycache__/
+
+_build/
+_data/
+
+.idea
+.settings
+.project
+.pydevproject
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+*~
+*.sw[op]
+
+# editor
+.vscode
+
+# virtual environment
+.venv_aplus
+
+# rstlinter
+.rstcheck.cfg
+
+
+#playgrounds
+module01/assignment/dev-lti.json
+module01/assignment/real-lti.json
+module01/assignment/playground.sh
+module01/assignment/playground.py
+
+module01/grade/playground.py
+module01/grade/playground.sh
+module01/grade/real-lti.json
